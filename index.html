@@ -1,0 +1,2174 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle de Certificados Digitais - Executavel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* === Tema padrão (claro) === */
+:root{
+  --bg:#F7F3E9;
+  --bg-grad:radial-gradient(1200px 600px at 10% -10%, #FBF8F0 0%, #F7F3E9 55%);
+  --surface:#FFFDF8;
+  --surface-2:#F1E9D8;
+  --surface-3:#E8DDC7;
+  --ink:#1B2A4A;
+  --ink-soft:#475069;
+  --ink-muted:#8A8475;
+  --line:#DCD2BC;
+  --line-strong:#C5B8A0;
+
+  --primary:#1B2A4A;
+  --primary-2:#2E3E60;
+  --primary-soft:rgba(27,42,74,0.10);
+  --primary-text:#FFFDF8;
+
+  --oxblood:#7A2E2E;
+  --oxblood-soft:rgba(122,46,46,0.10);
+  --amber:#B8802A;
+  --amber-soft:rgba(184,128,42,0.12);
+  --gold:#8A6B3E;
+  --gold-soft:rgba(138,107,62,0.12);
+  --forest:#2F5233;
+  --forest-soft:rgba(47,82,51,0.10);
+
+  --shadow-1:0 1px 2px rgba(27,42,74,0.06), 0 6px 20px rgba(27,42,74,0.05);
+  --shadow-2:0 4px 14px rgba(27,42,74,0.10), 0 10px 30px rgba(27,42,74,0.08);
+  --glow:0 0 0 1px rgba(27,42,74,0.30), 0 0 18px rgba(27,42,74,0.10);
+  --radius:14px;
+  --radius-sm:10px;
+  --overlay-bg:rgba(27,42,74,0.45);
+  --modal-shadow:0 20px 60px rgba(27,42,74,0.25);
+  color-scheme:light;
+}
+
+/* === Tema escuro === */
+:root[data-theme="dark"]{
+  --bg:#0E1320;
+  --bg-grad:radial-gradient(1200px 600px at 10% -10%, #131A2C 0%, #0E1320 55%);
+  --surface:#161C2E;
+  --surface-2:#1C2438;
+  --surface-3:#222B43;
+  --ink:#E9EEF8;
+  --ink-soft:#A6B0C8;
+  --ink-muted:#6E7A96;
+  --line:#2A3349;
+  --line-strong:#3A455F;
+
+  --primary:#5B8CFF;
+  --primary-2:#3D72F0;
+  --primary-soft:rgba(91,140,255,0.15);
+  --primary-text:#0E1320;
+
+  --oxblood:#FF5E78;
+  --oxblood-soft:rgba(255,94,120,0.14);
+  --amber:#FFB454;
+  --amber-soft:rgba(255,180,84,0.14);
+  --gold:#E0B875;
+  --gold-soft:rgba(224,184,117,0.14);
+  --forest:#3DD68C;
+  --forest-soft:rgba(61,214,140,0.14);
+
+  --shadow-1:0 1px 2px rgba(0,0,0,0.20), 0 6px 20px rgba(0,0,0,0.25);
+  --shadow-2:0 8px 30px rgba(0,0,0,0.35);
+  --glow:0 0 0 1px rgba(91,140,255,0.30), 0 0 24px rgba(91,140,255,0.18);
+  --overlay-bg:rgba(8,11,18,0.60);
+  --modal-shadow:0 30px 80px rgba(0,0,0,0.55);
+  color-scheme:dark;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg-grad), var(--bg);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  padding:36px 28px 80px;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+}
+.wrap{max-width:1080px;margin:0 auto;}
+
+/* ===== Header / Topbar ===== */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:24px;
+  padding-bottom:24px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:28px;
+}
+.brand{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.brand img{
+  height:64px;
+  width:auto;
+  filter:drop-shadow(0 1px 4px rgba(0,0,0,0.4)) saturate(1.05);
+  border-radius:6px;
+}
+.brand-text{display:flex;flex-direction:column;gap:4px;}
+.brand-eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--primary);
+  margin:0;
+}
+h1{
+  font-family:'Fraunces',serif;
+  font-size:34px;
+  font-weight:600;
+  margin:0;
+  letter-spacing:-.01em;
+  color:var(--ink);
+  background:linear-gradient(120deg, var(--ink) 0%, var(--primary) 130%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.subtitle{
+  margin:0;
+  color:var(--ink-soft);
+  font-size:14px;
+}
+.today-badge{
+  text-align:right;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  letter-spacing:.18em;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+  white-space:nowrap;
+  padding:10px 14px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+}
+.today-badge b{display:block;font-size:15px;color:var(--ink);letter-spacing:.04em;font-family:'Inter',sans-serif;margin-top:3px;text-transform:none;}
+
+/* ===== Topbar actions wrapper ===== */
+.topbar-actions{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-shrink:0;
+}
+
+/* ===== Theme toggle switch (cápsula com knob deslizante) ===== */
+.theme-toggle{
+  appearance:none;
+  border:none;
+  padding:0;
+  margin:0;
+  background:transparent;
+  cursor:pointer;
+  flex-shrink:0;
+  width:62px;
+  height:32px;
+  display:block;
+}
+.toggle-track{
+  position:relative;
+  width:62px;
+  height:32px;
+  border-radius:999px;
+  padding:0;
+  background:linear-gradient(120deg, #ffd479 0%, #ff9c54 100%);
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,0.45),
+    inset 0 -2px 4px rgba(170,80,0,0.25),
+    0 2px 6px rgba(0,0,0,0.12);
+  transition:background .35s ease, box-shadow .35s ease;
+  overflow:hidden;
+}
+.theme-toggle:hover .toggle-track{
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,0.55),
+    inset 0 -2px 4px rgba(170,80,0,0.30),
+    0 3px 10px rgba(255,156,84,0.40);
+}
+
+/* Sol (modo claro) — lado DIREITO (knob à esquerda) */
+.toggle-icon-sun{
+  position:absolute;
+  right:5px;
+  top:50%;
+  transform:translateY(-50%);
+  width:22px;
+  height:22px;
+  opacity:1;
+  transition:opacity .35s ease, transform .35s ease;
+  pointer-events:none;
+}
+.toggle-icon-sun::before,
+.toggle-icon-sun::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  background:#fff;
+}
+.toggle-icon-sun::before{
+  /* centro do sol */
+  width:8px;
+  height:8px;
+  margin:-4px 0 0 -4px;
+  border-radius:50%;
+  box-shadow:0 0 6px rgba(255,240,200,0.7);
+}
+.toggle-icon-sun::after{
+  /* raios do sol (em cruz + diagonais) */
+  width:14px;
+  height:14px;
+  margin:-7px 0 0 -7px;
+  border-radius:50%;
+  background:transparent;
+  box-shadow:
+    0 -7px 0 -4px #fff, 0 7px 0 -4px #fff, -7px 0 0 -4px #fff, 7px 0 0 -4px #fff,
+    5px -5px 0 -4.5px #fff, 5px 5px 0 -4.5px #fff, -5px -5px 0 -4.5px #fff, -5px 5px 0 -4.5px #fff;
+}
+
+/* Lua e estrelas (modo escuro) — lado ESQUERDO (knob à direita) */
+.toggle-icon-moon{
+  position:absolute;
+  left:5px;
+  top:50%;
+  transform:translateY(-50%);
+  width:22px;
+  height:22px;
+  opacity:0;
+  transition:opacity .35s ease, transform .35s ease;
+  pointer-events:none;
+}
+.toggle-icon-moon::before{
+  /* lua crescente (círculo branco com recorte à esquerda simulando crescente voltada pra direita) */
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:14px;
+  height:14px;
+  margin:-7px 0 0 -7px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:
+    inset -5px -1px 0 -1px #1b2a6b,
+    0 0 6px rgba(220,230,255,0.6);
+}
+.star{
+  position:absolute;
+  background:#fff;
+  border-radius:50%;
+  box-shadow:0 0 4px #fff;
+}
+.star.s1{width:2.5px;height:2.5px;top:0;left:-2px;}
+.star.s2{width:2px;height:2px;top:14px;left:6px;}
+.star.s3{width:1.5px;height:1.5px;top:3px;left:11px;}
+
+/* Knob (botão branco que desliza) */
+.toggle-knob{
+  position:absolute;
+  top:3px;
+  left:3px;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  background:linear-gradient(180deg,#ffffff 0%,#e8eef7 100%);
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.18),
+    0 3px 8px rgba(0,0,0,0.25),
+    inset 0 1px 1px rgba(255,255,255,0.85);
+  transition:left .35s cubic-bezier(.4,1.4,.5,1), background .35s ease, box-shadow .35s ease;
+  z-index:1;
+}
+
+/* === Estado ESCURO === */
+:root[data-theme="dark"] .toggle-track{
+  background:linear-gradient(120deg, #5B8CFF 0%, #1B2A6B 100%);
+  box-shadow:
+    inset 0 1px 2px rgba(180,200,255,0.40),
+    inset 0 -2px 4px rgba(10,12,40,0.35),
+    0 2px 6px rgba(0,0,0,0.25);
+}
+:root[data-theme="dark"] .theme-toggle:hover .toggle-track{
+  box-shadow:
+    inset 0 1px 2px rgba(180,200,255,0.55),
+    inset 0 -2px 4px rgba(10,12,40,0.40),
+    0 3px 12px rgba(91,140,255,0.50);
+}
+:root[data-theme="dark"] .toggle-icon-sun{
+  opacity:0;
+  transform:translateY(-50%) scale(.5) rotate(-90deg);
+}
+:root[data-theme="dark"] .toggle-icon-moon{
+  opacity:1;
+  transform:translateY(-50%);
+}
+:root[data-theme="dark"] .toggle-knob{
+  left:33px;
+  background:linear-gradient(180deg,#ffffff 0%,#d4dcf0 100%);
+}
+
+/* ===== Stat strip ===== */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:28px;
+}
+.stat{
+  appearance:none;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:18px 18px;
+  box-shadow:var(--shadow-1);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  text-align:left;
+  cursor:default;
+  color:var(--ink);
+  font-family:inherit;
+  transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+.stat.clickable{cursor:pointer;}
+.stat.clickable:hover{
+  transform:translateY(-2px);
+  border-color:var(--line-strong);
+  box-shadow:var(--shadow-2);
+}
+.stat::before{
+  content:"";
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:3px;
+  border-radius:0 3px 3px 0;
+}
+.stat.total::before{background:linear-gradient(180deg,var(--primary),var(--primary-2));}
+.stat.vencido::before{background:var(--oxblood);}
+.stat.proximo::before{background:var(--amber);}
+.stat.ok::before{background:var(--forest);}
+.stat-icon{
+  width:42px;height:42px;
+  border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+  flex-shrink:0;
+}
+.stat.total .stat-icon{background:var(--primary-soft);color:var(--primary);}
+.stat.vencido .stat-icon{background:var(--oxblood-soft);color:var(--oxblood);}
+.stat.proximo .stat-icon{background:var(--amber-soft);color:var(--amber);}
+.stat.ok .stat-icon{background:var(--forest-soft);color:var(--forest);}
+.stat-data{display:flex;flex-direction:column;}
+.stat .num{
+  font-family:'Fraunces',serif;
+  font-size:30px;
+  font-weight:600;
+  line-height:1;
+  color:var(--ink);
+}
+.stat .lbl{
+  font-size:11.5px;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-top:7px;
+  font-family:'IBM Plex Mono',monospace;
+}
+
+/* ===== Toolbar ===== */
+.toolbar{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-bottom:18px;
+  flex-wrap:wrap;
+}
+.search-wrap{
+  position:relative;
+  flex:1;
+  min-width:220px;
+}
+.search-ico{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:13px;
+  color:var(--ink-muted);
+  pointer-events:none;
+  z-index:2;
+  opacity:1;
+  transition:opacity .2s ease;
+}
+.search-wrap input[type=text]:not(:placeholder-shown) ~ .search-ico,
+.search-wrap.has-text .search-ico{opacity:0;}
+.search-wrap input[type=text]{
+  width:100%;
+  padding:11px 38px 11px 14px;
+  position:relative;
+  background:transparent;
+}
+.clear-search{
+  display:none;
+  position:absolute;
+  right:8px;
+  top:50%;
+  transform:translateY(-50%);
+  width:24px;
+  height:24px;
+  border:none;
+  background:var(--surface-2);
+  color:var(--ink-soft);
+  font-size:18px;
+  line-height:1;
+  cursor:pointer;
+  border-radius:50%;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--line);
+  z-index:2;
+}
+.clear-search:hover{background:var(--surface-3);color:var(--ink);}
+.clear-search.show{display:flex;}
+
+.toolbar input[type=text], .toolbar select{
+  font-family:'Inter',sans-serif;
+  font-size:14px;
+  padding:11px 12px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  background:var(--surface);
+  color:var(--ink);
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.toolbar input[type=text]:focus, .toolbar select:focus{
+  outline:none;
+  border-color:var(--primary);
+  box-shadow:var(--glow);
+}
+.toolbar input[type=text]{flex:1;min-width:180px;}
+.toolbar select{
+  cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--ink-soft) 50%),linear-gradient(135deg,var(--ink-soft) 50%,transparent 50%);
+  background-position:calc(100% - 18px) center,calc(100% - 13px) center;
+  background-size:5px 5px,5px 5px;
+  background-repeat:no-repeat;
+  padding-right:34px;
+  appearance:none;
+}
+.btn{
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  font-size:14px;
+  padding:11px 16px;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--primary);
+  background:var(--primary);
+  color:#fff;
+  cursor:pointer;
+  transition:transform .08s ease, opacity .15s ease, box-shadow .15s ease, background .15s ease;
+  white-space:nowrap;
+}
+.btn:hover{opacity:.92;box-shadow:0 4px 14px rgba(91,140,255,0.30);}
+.btn:active{transform:scale(.97);}
+.btn.primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));border-color:transparent;}
+.btn.ghost{
+  background:var(--surface);
+  color:var(--ink);
+  border:1px solid var(--line);
+  font-weight:500;
+}
+.btn.ghost:hover{border-color:var(--line-strong);background:var(--surface-2);box-shadow:none;}
+.btn.small{padding:8px 12px;font-size:12.5px;}
+.btn.danger{border-color:var(--oxblood);background:var(--oxblood-soft);color:var(--oxblood);}
+.btn.danger:hover{background:var(--oxblood);color:#fff;border-color:var(--oxblood);}
+
+/* ===== Alert banner ===== */
+.alert-banner{
+  display:none;
+  align-items:center;
+  gap:10px;
+  background:var(--oxblood-soft);
+  border:1px solid rgba(255,94,120,0.35);
+  color:var(--oxblood);
+  padding:13px 16px;
+  border-radius:var(--radius-sm);
+  font-size:13.5px;
+  margin-bottom:18px;
+  font-family:'IBM Plex Mono',monospace;
+}
+.alert-banner.show{display:flex;animation:slideIn .3s ease;}
+.alert-ico{font-size:16px;}
+@keyframes slideIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+
+/* ===== List ===== */
+.list{display:flex;flex-direction:column;gap:10px;}
+.empty{
+  text-align:center;
+  padding:70px 20px;
+  color:var(--ink-soft);
+  border:1.5px dashed var(--line);
+  border-radius:var(--radius);
+  background:var(--surface);
+}
+.empty .big{font-family:'Fraunces',serif;font-size:20px;color:var(--ink);margin-bottom:6px;}
+
+.cert-wrapper{
+  position:relative;
+  padding-right:46px;
+}
+.cert-wrapper{
+  transition:none;
+}
+.cert-row{
+  display:grid;
+  grid-template-columns:auto 1fr auto auto;
+  align-items:center;
+  gap:18px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:16px 18px;
+  box-shadow:var(--shadow-1);
+  position:static;
+  transition:box-shadow .15s ease, transform .15s ease, border-color .15s ease;
+}
+.cert-row:hover{
+  box-shadow:var(--shadow-2);
+  transform:translateY(-1px);
+  border-color:var(--line-strong);
+}
+
+.quick-del{
+  position:absolute;
+  right:4px;
+  top:50%;
+  transform:translateY(-50%) scale(.5);
+  width:38px;
+  height:38px;
+  margin:0;
+  padding:0;
+  border:1px solid var(--oxblood);
+  background:var(--surface);
+  color:var(--oxblood);
+  font-size:16px;
+  line-height:1;
+  border-radius:50%;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transition:opacity .22s ease, transform .22s cubic-bezier(.2,.7,.3,1), background .15s ease, color .15s ease;
+  pointer-events:none;
+  z-index:5;
+  box-shadow:var(--shadow-1);
+  font-family:'Inter',sans-serif;
+}
+.cert-wrapper:hover .quick-del{
+  opacity:1;
+  transform:translateY(-50%) scale(1);
+  pointer-events:auto;
+}
+.quick-del:hover{background:var(--oxblood);color:#fff;border-color:var(--oxblood);}
+.quick-del:active{transform:translateY(-50%) scale(.92);}
+
+/* Seal (selo de dias) */
+.seal{
+  width:58px;height:58px;
+  border-radius:14px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-family:'Fraunces',serif;
+  border:1.5px solid;
+  flex-shrink:0;
+  text-align:center;
+}
+.seal .n{font-size:17px;font-weight:700;line-height:1;}
+.seal .u{font-size:8px;font-family:'IBM Plex Mono',monospace;letter-spacing:.03em;margin-top:3px;}
+.seal.st-vencido{border-color:var(--oxblood);color:var(--oxblood);background:var(--oxblood-soft);}
+.seal.st-urgente{border-color:var(--oxblood);color:var(--oxblood);background:rgba(255,94,120,0.08);}
+.seal.st-atencao{border-color:var(--amber);color:var(--amber);background:var(--amber-soft);}
+.seal.st-proximo{border-color:var(--gold);color:var(--gold);background:var(--gold-soft);}
+.seal.st-ok{border-color:var(--forest);color:var(--forest);background:var(--forest-soft);}
+
+.cert-info .nome{
+  font-family:'Fraunces',serif;
+  font-size:17px;
+  font-weight:600;
+  color:var(--ink);
+  margin:0 0 4px;
+}
+.cert-info .meta{
+  font-size:12.5px;
+  color:var(--ink-soft);
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  letter-spacing:.03em;
+  padding:3px 8px;
+  border-radius:6px;
+  background:var(--surface-2);
+  color:var(--ink-soft);
+  border:1px solid var(--line);
+}
+.cert-dates{
+  text-align:right;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  color:var(--ink-soft);
+  line-height:1.6;
+  white-space:nowrap;
+}
+.cert-dates b{color:var(--ink);font-weight:600;}
+.cert-actions{display:flex;gap:6px;}
+
+/* ===== Trash rows ===== */
+.cert-row.trash-row{
+  opacity:.78;
+  background:var(--surface-2);
+  border-style:dashed;
+}
+.cert-row.trash-row .nome{text-decoration:line-through;color:var(--ink-muted);}
+#btnTrash{flex-shrink:0;}
+
+/* ===== Sort button ===== */
+.sort-btn.active{
+  background:linear-gradient(135deg,var(--primary),var(--primary-2));
+  color:#fff;
+  border-color:transparent;
+}
+
+/* ===== Modal ===== */
+.overlay{
+  display:none;
+  position:fixed;inset:0;
+  background:var(--overlay-bg);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  align-items:flex-start;
+  justify-content:center;
+  padding:40px 20px;
+  overflow-y:auto;
+  z-index:50;
+}
+.overlay.show{display:flex;animation:fadeIn .2s ease;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.modal{
+  background:var(--surface);
+  border-radius:18px;
+  max-width:560px;
+  width:100%;
+  padding:32px 30px 24px;
+  box-shadow:var(--modal-shadow);
+  border:1px solid var(--line);
+  position:relative;
+  animation:modalIn .25s cubic-bezier(.2,.7,.3,1);
+}
+@keyframes modalIn{from{opacity:0;transform:translateY(10px) scale(.98);}to{opacity:1;transform:none;}}
+.modal h2{
+  font-family:'Fraunces',serif;
+  font-size:24px;
+  margin:0 0 22px;
+  color:var(--ink);
+}
+.modal-close{
+  position:absolute;
+  top:14px;right:14px;
+  width:34px;height:34px;
+  border:1px solid var(--line);
+  background:var(--surface-2);
+  color:var(--ink-soft);
+  font-size:22px;
+  line-height:1;
+  border-radius:50%;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s ease, color .15s ease;
+}
+.modal-close:hover{background:var(--surface-3);color:var(--ink);}
+.field{margin-bottom:14px;}
+.field label{
+  display:block;
+  font-size:11.5px;
+  font-weight:600;
+  color:var(--ink-soft);
+  margin-bottom:6px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+.field input, .field select, .field textarea{
+  width:100%;
+  font-family:'Inter',sans-serif;
+  font-size:14px;
+  padding:11px 12px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  background:var(--surface-2);
+  color:var(--ink);
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.field input:focus, .field select:focus, .field textarea:focus{
+  outline:none;
+  border-color:var(--primary);
+  box-shadow:var(--glow);
+}
+.field input::placeholder, .field textarea::placeholder{color:var(--ink-muted);}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.modal-actions{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+}
+.modal-actions .right{display:flex;gap:8px;}
+.modal-actions .left{display:flex;gap:8px;}
+
+/* ===== Auto-save indicator ===== */
+.auto-save-indicator{
+  display:none;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;
+  color:var(--forest);
+  margin:6px 0 0 2px;
+  letter-spacing:.02em;
+  opacity:0;
+  transition:opacity .2s ease;
+}
+.auto-save-indicator.show{display:block;opacity:1;}
+
+/* ===== Sócios (BrasilAPI) ===== */
+.socios-loading, .socios-error, .socios-empty{
+  text-align:center;
+  padding:32px 16px;
+  color:var(--ink-soft);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px;
+  line-height:1.7;
+}
+.socios-error, .socios-empty{
+  background:var(--oxblood-soft);
+  border:1px solid rgba(255,94,120,0.35);
+  color:var(--oxblood);
+  border-radius:var(--radius-sm);
+}
+.socios-header{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  padding:14px 16px;
+  margin-bottom:16px;
+  font-size:13px;
+  color:var(--ink-soft);
+}
+.socios-header span{
+  text-transform:uppercase;
+  font-size:10px;
+  letter-spacing:.06em;
+  color:var(--ink-muted);
+  font-family:'IBM Plex Mono',monospace;
+  display:block;
+  margin-bottom:3px;
+}
+.socios-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  max-height:50vh;
+  overflow-y:auto;
+}
+.socios-list-title{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--ink-muted);
+  font-family:'IBM Plex Mono',monospace;
+  margin-bottom:4px;
+}
+.socio-row{
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  padding:13px 14px;
+}
+.socio-n{
+  font-family:'Fraunces',serif;
+  font-size:16px;
+  font-weight:600;
+  color:var(--ink);
+  margin-bottom:6px;
+}
+.socio-meta{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  font-size:11.5px;
+}
+.socio-rep{
+  margin-top:6px;
+  font-size:11.5px;
+  color:var(--ink-muted);
+  font-family:'IBM Plex Mono',monospace;
+}
+
+/* ===== Footer ===== */
+footer{
+  max-width:1080px;
+  margin:36px auto 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:12px;
+  color:var(--ink-muted);
+  font-family:'IBM Plex Mono',monospace;
+  flex-wrap:wrap;
+  gap:10px;
+}
+#fileInput{display:none;}
+.footer-actions{display:flex;gap:8px;flex-wrap:wrap;}
+
+/* ===== Responsive ===== */
+@media (max-width:680px){
+  body{padding:24px 16px 60px;}
+  .stats{grid-template-columns:repeat(2,1fr);}
+  .cert-row{
+    grid-template-columns:auto 1fr;
+    grid-template-areas:"seal info" "seal dates" "actions actions";
+  }
+  .seal{grid-area:seal;}
+  .cert-info{grid-area:info;}
+  .cert-dates{grid-area:dates;text-align:left;}
+  .cert-actions{grid-area:actions;margin-top:8px;}
+  .topbar{flex-direction:column;align-items:flex-start;}
+  .today-badge{text-align:left;}
+  .row2{grid-template-columns:1fr;}
+  h1{font-size:28px;}
+  .brand img{height:52px;}
+}
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important;animation:none !important;}
+}
+
+</style>
+<script>
+// Aplica o tema antes do render para evitar flash (FOUC)
+(function(){
+  try{
+    var t = localStorage.getItem('certs_theme');
+    if(!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    if(t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+  }catch(e){}
+})();
+</script>
+</head>
+<body>
+
+<!-- Layout v2: tema escuro elegante com glassmorphism sutil -->
+<div class="wrap">
+  <header class="topbar">
+    <div class="brand">
+      <a>
+        <img alt="Patrimônio Escritório de Contabilidade" loading="eager" src="https://patrimonioesc.com.br/wp-content/themes/yootheme/cache/95/Patrimonio-Contabilidade-951baf8c.webp" width="400" height="100">
+      </a>
+      <div class="brand-text">
+        <p class="brand-eyebrow">Escritorio Patrimonio &reg; Registro Interno &middot; Documentos Digitais</p>
+        <h1>Controle de Certificados</h1>
+        <p class="subtitle">e-CPF &middot; e-CNPJ &middot; modelos A1 e A3 &mdash; validade e respons&aacute;veis</p>
+        <p class="brand-eyebrow">Made by: &middot; Vitor Giordani Rabello</p>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <div class="today-badge">
+        <span>HOJE</span>
+        <b id="todayLabel">--</b>
+      </div>
+      <button type="button" class="theme-toggle" id="btnTheme" aria-label="Alternar tema claro/escuro" title="Alternar tema claro/escuro">
+        <div class="toggle-track">
+          <span class="toggle-icon-sun" aria-hidden="true"></span>
+          <span class="toggle-icon-moon" aria-hidden="true">
+            <span class="star s1"></span>
+            <span class="star s2"></span>
+            <span class="star s3"></span>
+          </span>
+          <span class="toggle-knob"></span>
+        </div>
+      </button>
+    </div>
+  </header>
+
+  <div class="alert-banner" id="alertBanner">
+    <span class="alert-ico">&#9888;</span>
+    <span id="alertText"></span>
+  </div>
+
+  <section class="stats" aria-label="Resumo">
+    <button class="stat total clickable" type="button" aria-label="Filtrar por total">
+      <div class="stat-icon" aria-hidden="true">&#128273;</div>
+      <div class="stat-data">
+        <div class="num" id="statTotal">0</div>
+        <div class="lbl">Total</div>
+      </div>
+    </button>
+    <button class="stat vencido clickable" type="button" aria-label="Filtrar vencidos">
+      <div class="stat-icon" aria-hidden="true">&#9888;</div>
+      <div class="stat-data">
+        <div class="num" id="statVencido">0</div>
+        <div class="lbl">Vencidos</div>
+      </div>
+    </button>
+    <button class="stat proximo clickable" type="button" aria-label="Filtrar vencem em 30 dias">
+      <div class="stat-icon" aria-hidden="true">&#9201;</div>
+      <div class="stat-data">
+        <div class="num" id="statProximo">0</div>
+        <div class="lbl">Vencem em 30 dias</div>
+      </div>
+    </button>
+    <button class="stat ok" type="button" aria-label="Em dia">
+      <div class="stat-icon" aria-hidden="true">&#10003;</div>
+      <div class="stat-data">
+        <div class="num" id="statOk">0</div>
+        <div class="lbl">Em dia</div>
+      </div>
+    </button>
+  </section>
+
+  <div class="toolbar">
+    <div class="search-wrap">
+      <span class="search-ico" aria-hidden="true">&#128269;</span>
+      <input type="text" id="searchInput" placeholder="Buscar por nome, titular, CPF ou CNPJ...">
+      <button type="button" id="btnClearSearch" class="clear-search" title="Limpar busca">&times;</button>
+    </div>
+    <select id="filterStatus" aria-label="Filtrar por status">
+      <option value="">Todos</option>
+      <option value="vencido">Vencidos</option>
+      <option value="vencendo30">Vencem em 30 dias</option>
+      <option value="urgente">Urgente (0-15 dias)</option>
+      <option value="atencao">Atenção (16-30 dias)</option>
+      <option value="proximo">Próximo (31-60 dias)</option>
+      <option value="ok">Em dia</option>
+    </select>
+    <select id="filterTipo" aria-label="Filtrar por tipo">
+      <option value="">Todos os tipos</option>
+      <option value="e-CPF">e-CPF</option>
+      <option value="e-CNPJ">e-CNPJ</option>
+      <option value="NF-e">NF-e</option>
+      <option value="SSL">SSL</option>
+      <option value="Outro">Outro</option>
+    </select>
+    <button type="button" class="btn primary admin-only" id="btnNew">+ Novo certificado</button>
+    <button type="button" class="btn ghost small admin-only" id="btnTrash" title="Certificados excluídos">&#128465; Lixeira</button>
+    <button type="button" class="btn ghost small sort-btn" id="btnSortAlpha" title="Ordenar alfabeticamente por nome">A-Z</button>
+  </div>
+
+  <div class="list" id="listContainer"></div>
+  <div class="list" id="trashContainer" style="display:none;"></div>
+
+  <footer>
+    <span id="footerCount">0 certificados cadastrados</span>
+    <span class="footer-actions">
+      <button type="button" class="btn ghost small" id="btnExport">Exportar backup (.json)</button>
+      <button type="button" class="btn ghost small" id="btnImport">Importar backup</button>
+      <button type="button" class="btn ghost small" id="btnBkpAuto" title="Importar BKP.json da pasta test/ automaticamente">&#128230; Bkp automático</button>
+    </span>
+  </footer>
+</div>
+
+<input type="file" id="fileInput" accept="application/json">
+
+<!-- Modal Certificado -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button type="button" class="modal-close" id="btnCloseTop" aria-label="Fechar">&times;</button>
+    <h2 id="modalTitle">Novo certificado</h2>
+    <form id="certForm">
+      <input type="hidden" id="certId">
+      <div class="field">
+        <label for="f_nome">Apelido do certificado</label>
+        <input type="text" id="f_nome" placeholder="Ex: e-CNPJ Matriz, e-CPF Diretor..." required>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="f_titular">Titular</label>
+          <input type="text" id="f_titular" placeholder="Nome ou razão social" required>
+        </div>
+        <div class="field">
+          <label for="f_documento">CPF / CNPJ</label>
+          <input type="text" id="f_documento" placeholder="000.000.000-00">
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="f_tipo">Tipo</label>
+          <select id="f_tipo">
+            <option>e-CPF</option>
+            <option>e-CNPJ</option>
+            <option>NF-e</option>
+            <option>SSL</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f_modelo">Modelo</label>
+          <select id="f_modelo">
+            <option>A1</option>
+            <option>A3</option>
+          </select>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="f_emissao">Data de emissão</label>
+          <input type="date" id="f_emissao">
+        </div>
+        <div class="field">
+          <label for="f_vencimento">Data de vencimento</label>
+          <input type="date" id="f_vencimento" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="f_emissora">Autoridade certificadora / Emissora</label>
+        <input type="text" id="f_emissora" placeholder="Ex: Serasa, Certisign, Soluti...">
+      </div>
+      <div class="field">
+        <label for="f_responsavel">Responsável interno</label>
+        <input type="text" id="f_responsavel" placeholder="Quem cuida da renovação">
+      </div>
+      <div class="field">
+        <label for="f_obs">Observações</label>
+        <textarea id="f_obs" rows="2" placeholder="Local de armazenamento do token, senha em cofre, etc."></textarea>
+      </div>
+      <div class="auto-save-indicator" id="autoSaveIndicator">&#10003; Salvo automaticamente</div>
+      <div class="modal-actions">
+        <div class="left">
+          <button type="button" class="btn danger small" id="btnDelete" style="display:none;">Excluir</button>
+          <button type="button" class="btn ghost small" id="btnRestore" style="display:none;">Restaurar</button>
+          <button type="button" class="btn danger small" id="btnDeletePermanent" style="display:none;">Excluir permanentemente</button>
+        </div>
+        <div class="right">
+          <button type="button" class="btn ghost small" id="btnCancel">Cancelar</button>
+          <button type="submit" class="btn primary small">Salvar certificado</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Sócios (BrasilAPI) -->
+<div class="overlay" id="sociosOverlay">
+  <div class="modal" style="max-width:640px;">
+    <button type="button" class="modal-close" id="btnSociosCloseTop" aria-label="Fechar">&times;</button>
+    <h2 id="sociosTitle">Sócios</h2>
+    <div id="sociosBody" style="min-height:120px;">
+      <div class="socios-loading">Consultando BrasilAPI...</div>
+    </div>
+    <div class="modal-actions">
+      <div class="left"></div>
+      <div class="right">
+        <button type="button" class="btn ghost small" id="btnSociosClose">Fechar</button>
+        <button type="button" class="btn primary small" id="btnSociosBack">&#8592; Voltar</button>
+        <button type="button" class="btn success small" id="btnBKPAuto">BKP automático</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal PIN Admin -->
+<div class="overlay" id="adminOverlay">
+  <div class="modal" style="max-width:420px;">
+    <h2>&#128274; Modo administrador</h2>
+    <p style="font-size:13px;color:var(--ink-soft);margin:0 0 14px;line-height:1.5;">
+      Digite o PIN para desbloquear a edição de certificados.
+    </p>
+    <div class="field">
+      <label for="adminPin">PIN</label>
+      <input type="password" id="adminPin" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="Digite o PIN" autocomplete="off" style="font-family:'IBM Plex Mono',monospace;letter-spacing:.4em;text-align:center;font-size:18px;">
+    </div>
+    <div class="modal-actions">
+      <div class="left">
+        <button type="button" class="btn danger small" id="btnAdminLogout" style="display:none;">Sair do modo admin</button>
+      </div>
+      <div class="right">
+        <button type="button" class="btn ghost small" id="btnAdminCancel">Cancelar</button>
+        <button type="button" class="btn primary small" id="btnAdminConfirm">Desbloquear</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+﻿// Estado em memória do aplicativo
+let certs = [];
+let deletedCerts = [];
+let showingTrash = false;
+let dbDirHandle = null;
+
+// Estado de ordenação alfabética: '' | 'az' | 'za'
+let sortAlpha = '';
+
+// Chaves de armazenamento local do navegador
+const STORAGE_KEY = 'certificados_escritorio';
+const TRASH_KEY = 'certificados_lixeira';
+const DIR_HANDLE_KEY = 'certificados_dir_handle';
+
+// Carrega o estado salvo no browser ao iniciar
+function loadLocal(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    certs = raw ? JSON.parse(raw) : [];
+  }catch(e){ certs = []; }
+}
+
+function loadTrash(){
+  try{
+    const raw = localStorage.getItem(TRASH_KEY);
+    deletedCerts = raw ? JSON.parse(raw) : [];
+  }catch(e){ deletedCerts = []; }
+}
+
+// Persiste os dados em localStorage
+async function persist(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(certs));
+}
+
+async function persistTrash(){
+  localStorage.setItem(TRASH_KEY, JSON.stringify(deletedCerts));
+}
+
+// Gera um identificador único para cada certificado salvo
+function uid(){ return 'c_' + Date.now() + '_' + Math.random().toString(36).slice(2,8); }
+
+// Remove pontuação de CPF/CNPJ (pontos, traços, barras, espaços) para facilitar a busca
+function onlyDigits(str){
+  return (str||'').replace(/[^\d]/g, '');
+}
+
+// Calcula quantos dias faltam até a data de vencimento
+function daysUntil(dateStr){
+  if(!dateStr) return null;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const target = new Date(dateStr + 'T00:00:00');
+  return Math.round((target - today) / 86400000);
+}
+
+// Converte o número de dias em um status de vencimento
+function statusOf(dateStr){
+  const d = daysUntil(dateStr);
+  if(d === null) return {key:'ok', label:'EM DIA'};
+  if(d < 0) return {key:'vencido', label:'VENCIDO', dias:d};
+  if(d <= 15) return {key:'urgente', label:'URGENTE', dias:d};
+  if(d <= 30) return {key:'atencao', label:'ATENÇÃO', dias:d};
+  if(d <= 60) return {key:'proximo', label:'PRÓXIMO', dias:d};
+  return {key:'ok', label:'EM DIA', dias:d};
+}
+
+// Formata datas ISO em formato de exibição brasileiro
+function fmtDate(dateStr){
+  if(!dateStr) return '—';
+  const [y,m,d] = dateStr.split('-');
+  return `${d}/${m}/${y}`;
+}
+
+// Define o texto exibido no selo de dias restantes
+function sealText(status){
+  if(status.key === 'vencido') return {n: Math.abs(status.dias), u:'DIAS VENC.'};
+  return {n: status.dias, u:'DIAS'};
+}
+
+// Comparador de ordenação: alfabética (se ativa) senão por vencimento
+function sortRows(a,b){
+  if(sortAlpha === 'az'){
+    return (a.nome||'').localeCompare(b.nome||'', 'pt-BR', {sensitivity:'base'});
+  }
+  if(sortAlpha === 'za'){
+    return (b.nome||'').localeCompare(a.nome||'', 'pt-BR', {sensitivity:'base'});
+  }
+  return (a.vencimento||'9999-99-99').localeCompare(b.vencimento||'9999-99-99');
+}
+
+// Re-renderiza a lista de certificados aplicando busca e filtros
+function render(){
+  const listContainer = document.getElementById('listContainer');
+  const trashContainer = document.getElementById('trashContainer');
+
+  if(showingTrash){
+    listContainer.style.display = 'none';
+    trashContainer.style.display = 'flex';
+    renderTrash();
+    updateTrashStats();
+    return;
+  }
+
+  listContainer.style.display = 'flex';
+  trashContainer.style.display = 'none';
+
+  const search = document.getElementById('searchInput').value.trim().toLowerCase();
+  const fStatus = document.getElementById('filterStatus').value;
+  const fTipo = document.getElementById('filterTipo').value;
+
+  let rows = certs.map(c => ({...c, status: statusOf(c.vencimento)}));
+
+  if(search){
+    const searchDigits = onlyDigits(search);
+    rows = rows.filter(c =>
+      (c.nome||'').toLowerCase().includes(search) ||
+      (c.titular||'').toLowerCase().includes(search) ||
+      (c.documento||'').toLowerCase().includes(search) ||
+      (searchDigits && onlyDigits(c.documento).includes(searchDigits))
+    );
+  }
+  if(fStatus){
+    if(fStatus === 'vencendo30'){
+      rows = rows.filter(c => ['urgente','atencao'].includes(c.status.key));
+    } else {
+      rows = rows.filter(c => c.status.key === fStatus);
+    }
+  }
+  if(fTipo) rows = rows.filter(c => c.tipo === fTipo);
+
+  rows.sort((a,b) => sortRows(a,b));
+
+  listContainer.innerHTML = '';
+
+  if(rows.length === 0){
+    listContainer.innerHTML = `<div class="empty">
+      <div class="big">Nenhum certificado encontrado</div>
+      <div>Cadastre o primeiro certificado do escritório para começar a acompanhar os vencimentos.</div>
+    </div>`;
+  } else {
+    rows.forEach(c => {
+      const seal = sealText(c.status);
+      const wrapper = document.createElement('div');
+      wrapper.className = 'cert-wrapper';
+      const row = document.createElement('div');
+      row.className = 'cert-row';
+      row.innerHTML = `
+        <div class="seal st-${c.status.key}">
+          <div class="n">${seal.n}</div>
+          <div class="u">${seal.u}</div>
+        </div>
+        <div class="cert-info">
+          <p class="nome">${escapeHtml(c.nome)}</p>
+          <div class="meta">
+            <span>${escapeHtml(c.titular||'—')}</span>
+            <span class="tag">${escapeHtml(c.tipo||'—')}</span>
+            <span class="tag">${escapeHtml(c.modelo||'—')}</span>
+            <span class="tag">${escapeHtml(c.emissora||'—')}</span>
+            <span class="tag" style="color:var(--${c.status.key==='vencido'||c.status.key==='urgente' ? 'oxblood':'ink-soft'})">${c.status.label}</span>
+          </div>
+        </div>
+        <div class="cert-dates">
+          Emissão: <b>${fmtDate(c.emissao)}</b><br>
+          Vencimento: <b>${fmtDate(c.vencimento)}</b>
+        </div>
+        <div class="cert-actions">
+          <button class="btn ghost small" data-edit="${c.id}">Editar</button>
+          ${ c.tipo === 'e-CNPJ' ? `<button class="btn ghost small" data-socios="${c.id}" title="Consultar sócios via BrasilAPI">Sócios</button>` : '' }
+        </div>
+      `;
+      const delBtn = document.createElement('button');
+      delBtn.className = 'quick-del';
+      delBtn.setAttribute('data-quickdel', c.id);
+      delBtn.setAttribute('title', 'Enviar para a lixeira');
+      delBtn.innerHTML = '&#128465;';
+      wrapper.appendChild(row);
+      wrapper.appendChild(delBtn);
+      listContainer.appendChild(wrapper);
+    });
+  }
+
+  listContainer.querySelectorAll('[data-edit]').forEach(btn=>{
+    btn.addEventListener('click', ()=> openModal(btn.getAttribute('data-edit')));
+  });
+  listContainer.querySelectorAll('[data-socios]').forEach(btn=>{
+    btn.addEventListener('click', ()=> openSocios(btn.getAttribute('data-socios')));
+  });
+  listContainer.querySelectorAll('[data-quickdel]').forEach(btn=>{
+    btn.addEventListener('click', async (e)=>{
+      e.stopPropagation();
+      const id = btn.getAttribute('data-quickdel');
+      const cert = certs.find(c=>c.id===id);
+      if(!cert) return;
+      if(confirm(`Enviar "${cert.nome||cert.titular||'este certificado'}" para a lixeira?`)){
+        await moveToTrash(id);
+      }
+    });
+  });
+
+  updateStats();
+  updateAlertBanner();
+  document.getElementById('footerCount').textContent =
+    `${certs.length} certificado${certs.length===1?'':'s'} cadastrado${certs.length===1?'':'s'}`;
+}
+
+function renderTrash(){
+  const container = document.getElementById('trashContainer');
+  container.innerHTML = '';
+
+  if(deletedCerts.length === 0){
+    container.innerHTML = `<div class="empty">
+      <div class="big">Lixeira vazia</div>
+      <div>Certificados excluídos da relação TOTAL aparecem aqui. Você pode restaurá-los a qualquer momento.</div>
+    </div>`;
+    return;
+  }
+
+  deletedCerts.slice().sort((a,b) => sortRows(a,b)).forEach(c => {
+    const row = document.createElement('div');
+    row.className = 'cert-row trash-row';
+    const dt = c.deleted_at ? new Date(c.deleted_at).toLocaleString('pt-BR') : '';
+    row.innerHTML = `
+      <div class="seal st-vencido">
+        <div class="n">&#128465;</div>
+        <div class="u">EXCLUÍDO</div>
+      </div>
+      <div class="cert-info">
+        <p class="nome">${escapeHtml(c.nome)}</p>
+        <div class="meta">
+          <span>${escapeHtml(c.titular||'—')}</span>
+          <span class="tag">${escapeHtml(c.tipo||'—')}</span>
+          <span class="tag">${escapeHtml(c.modelo||'—')}</span>
+          <span class="tag">${escapeHtml(c.documento||'—')}</span>
+          <span class="tag">Excluído em ${escapeHtml(dt)}</span>
+        </div>
+      </div>
+      <div class="cert-dates">
+        Emissão: <b>${fmtDate(c.emissao)}</b><br>
+        Vencimento: <b>${fmtDate(c.vencimento)}</b>
+      </div>
+      <div class="cert-actions">
+        <button class="btn ghost small" data-restore="${c.id}">Restaurar</button>
+        <button class="btn danger small" data-permdel="${c.id}">Excluir perm.</button>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+
+  container.querySelectorAll('[data-restore]').forEach(btn=>{
+    btn.addEventListener('click', ()=> restoreFromTrash(btn.getAttribute('data-restore')));
+  });
+  container.querySelectorAll('[data-permdel]').forEach(btn=>{
+    btn.addEventListener('click', ()=> permanentDelete(btn.getAttribute('data-permdel')));
+  });
+}
+
+function updateTrashStats(){
+  document.getElementById('footerCount').textContent =
+    `${deletedCerts.length} certificado${deletedCerts.length===1?'':'s'} na lixeira`;
+}
+
+function escapeHtml(str){
+  const map = {38:'amp',60:'lt',62:'gt',34:'quot',39:'#39'};
+  return (str||'').replace(/[&<>"']/g, m => '&' + map[m.charCodeAt(0)] + ';');
+}
+
+function updateStats(){
+  const all = certs.map(c => statusOf(c.vencimento));
+  document.getElementById('statTotal').textContent = certs.length;
+  document.getElementById('statVencido').textContent = all.filter(s=>s.key==='vencido').length;
+  document.getElementById('statProximo').textContent = all.filter(s=>['urgente','atencao'].includes(s.key)).length;
+  document.getElementById('statOk').textContent = all.filter(s=>['ok','proximo'].includes(s.key)).length;
+}
+
+function updateAlertBanner(){
+  const urgent = certs.filter(c => ['vencido','urgente'].includes(statusOf(c.vencimento).key));
+  const banner = document.getElementById('alertBanner');
+  if(urgent.length === 0){ banner.classList.remove('show'); return; }
+  const names = urgent.slice(0,3).map(c=>c.nome).join(', ');
+  const extra = urgent.length > 3 ? ` e mais ${urgent.length-3}` : '';
+  document.getElementById('alertText').textContent =
+    `${urgent.length} certificado${urgent.length===1?'':'s'} vencido${urgent.length===1?'':'s'} ou vencendo em breve: ${names}${extra}.`;
+  banner.classList.add('show');
+}
+
+// ===== Modal =====
+let formFieldsBound = false;
+
+function openModal(id){
+  const overlay = document.getElementById('overlay');
+  const form = document.getElementById('certForm');
+  form.reset();
+  document.getElementById('certId').value = '';
+  document.getElementById('btnDelete').style.display = 'none';
+  document.getElementById('btnRestore').style.display = 'none';
+  document.getElementById('btnDeletePermanent').style.display = 'none';
+  document.getElementById('autoSaveIndicator').classList.remove('show');
+
+  if(id){
+    const c = certs.find(x=>x.id===id);
+    if(c){
+      document.getElementById('modalTitle').textContent = 'Editar certificado';
+      document.getElementById('certId').value = c.id;
+      document.getElementById('f_nome').value = c.nome||'';
+      document.getElementById('f_titular').value = c.titular||'';
+      document.getElementById('f_documento').value = c.documento||'';
+      document.getElementById('f_tipo').value = c.tipo||'e-CPF';
+      document.getElementById('f_modelo').value = c.modelo||'A1';
+      document.getElementById('f_emissao').value = c.emissao||'';
+      document.getElementById('f_vencimento').value = c.vencimento||'';
+      document.getElementById('f_emissora').value = c.emissora||'';
+      document.getElementById('f_responsavel').value = c.responsavel||'';
+      document.getElementById('f_obs').value = c.obs||'';
+      document.getElementById('btnDelete').style.display = 'inline-block';
+    }
+  } else {
+    document.getElementById('modalTitle').textContent = 'Novo certificado';
+  }
+  overlay.classList.add('show');
+  bindAutoSave();
+}
+
+function closeModal(){
+  document.getElementById('overlay').classList.remove('show');
+}
+
+function getFormData(){
+  const idField = document.getElementById('certId');
+  let id = idField.value;
+  const nome = document.getElementById('f_nome').value.trim();
+  const vencimento = document.getElementById('f_vencimento').value;
+  if(!nome || !vencimento) return null;
+  if(!id) id = uid();
+  idField.value = id;
+  return {
+    id,
+    nome,
+    titular: document.getElementById('f_titular').value.trim(),
+    documento: document.getElementById('f_documento').value.trim(),
+    tipo: document.getElementById('f_tipo').value,
+    modelo: document.getElementById('f_modelo').value,
+    emissao: document.getElementById('f_emissao').value,
+    vencimento,
+    emissora: document.getElementById('f_emissora').value.trim(),
+    responsavel: document.getElementById('f_responsavel').value.trim(),
+    obs: document.getElementById('f_obs').value.trim(),
+  };
+}
+
+let autoSaveTimer = null;
+function bindAutoSave(){
+  if(formFieldsBound) return;
+  const fields = ['f_nome','f_titular','f_documento','f_tipo','f_modelo','f_emissao','f_vencimento','f_emissora','f_responsavel','f_obs'];
+  fields.forEach(fid => {
+    const el = document.getElementById(fid);
+    if(!el) return;
+    el.addEventListener('input', scheduleAutoSave);
+    el.addEventListener('change', scheduleAutoSave);
+  });
+  formFieldsBound = true;
+}
+
+function scheduleAutoSave(){
+  clearTimeout(autoSaveTimer);
+  autoSaveTimer = setTimeout(autoSave, 500);
+}
+
+async function autoSave(){
+  const data = getFormData();
+  if(!data) return;
+  const idx = certs.findIndex(c=>c.id===data.id);
+  if(idx >= 0) certs[idx] = data; else certs.push(data);
+  await persist();
+  render();
+  const indicator = document.getElementById('autoSaveIndicator');
+  indicator.classList.add('show');
+  clearTimeout(indicator._timer);
+  indicator._timer = setTimeout(()=> indicator.classList.remove('show'), 1500);
+}
+
+document.getElementById('certForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const data = getFormData();
+  if(!data){ alert('Preencha pelo menos o nome e a data de vencimento.'); return; }
+  const idx = certs.findIndex(c=>c.id===data.id);
+  if(idx >= 0) certs[idx] = data; else certs.push(data);
+  closeModal();
+  render();
+  await persist();
+});
+
+document.getElementById('btnDelete').addEventListener('click', async function(){
+  const id = document.getElementById('certId').value;
+  if(id && confirm('Enviar este certificado para a lixeira?')){
+    moveToTrash(id);
+  }
+});
+
+document.getElementById('btnRestore').addEventListener('click', async function(){
+  const id = document.getElementById('certId').value;
+  if(id) await restoreFromTrash(id);
+  closeModal();
+});
+
+document.getElementById('btnDeletePermanent').addEventListener('click', async function(){
+  const id = document.getElementById('certId').value;
+  if(id && confirm('Excluir PERMANENTEMENTE? Esta ação não pode ser desfeita.')){
+    await permanentDelete(id);
+    closeModal();
+  }
+});
+
+async function moveToTrash(id){
+  const idx = certs.findIndex(c=>c.id===id);
+  if(idx < 0) return;
+  const cert = certs[idx];
+  cert.deleted_at = new Date().toISOString();
+  deletedCerts.push(cert);
+  certs.splice(idx, 1);
+  closeModal();
+  render();
+  await persist();
+  await persistTrash();
+}
+
+async function restoreFromTrash(id){
+  const idx = deletedCerts.findIndex(c=>c.id===id);
+  if(idx < 0) return;
+  const cert = deletedCerts[idx];
+  delete cert.deleted_at;
+  certs.push(cert);
+  deletedCerts.splice(idx, 1);
+  render();
+  await persist();
+  await persistTrash();
+}
+
+async function permanentDelete(id){
+  deletedCerts = deletedCerts.filter(c=>c.id!==id);
+  render();
+  await persistTrash();
+}
+
+document.getElementById('btnNew').addEventListener('click', ()=>openModal(null));
+document.getElementById('btnCancel').addEventListener('click', closeModal);
+const btnCloseTop = document.getElementById('btnCloseTop');
+if(btnCloseTop) btnCloseTop.addEventListener('click', closeModal);
+document.getElementById('overlay').addEventListener('click', (e)=>{
+  if(e.target.id === 'overlay') closeModal();
+});
+
+// ===== Lixeira toggle =====
+document.getElementById('btnTrash').addEventListener('click', ()=>{
+  showingTrash = !showingTrash;
+  const btn = document.getElementById('btnTrash');
+  if(showingTrash){
+    btn.textContent = '\u25C0 Voltar';
+    btn.classList.remove('ghost');
+  } else {
+    btn.innerHTML = '\uD83D\uDDD1 Lixeira';
+    btn.classList.add('ghost');
+  }
+  render();
+});
+
+// ===== Filtros =====
+function setStatusFilter(value){
+  const filter = document.getElementById('filterStatus');
+  filter.value = value;
+  render();
+}
+
+function updateClearButton(){
+  const input = document.getElementById('searchInput');
+  const btn = document.getElementById('btnClearSearch');
+  btn.classList.toggle('show', input.value.length > 0);
+}
+
+document.getElementById('searchInput').addEventListener('input', ()=>{ updateClearButton(); render(); });
+document.getElementById('btnClearSearch').addEventListener('click', ()=>{
+  const input = document.getElementById('searchInput');
+  input.value = '';
+  updateClearButton();
+  input.focus();
+  render();
+});
+updateClearButton();
+document.getElementById('filterStatus').addEventListener('change', render);
+document.getElementById('filterTipo').addEventListener('change', render);
+
+// ===== Ordenação alfabética opcional =====
+const btnSortAlpha = document.getElementById('btnSortAlpha');
+btnSortAlpha.addEventListener('click', ()=>{
+  // ciclo: '' -> 'az' -> 'za' -> ''
+  sortAlpha = sortAlpha === '' ? 'az' : (sortAlpha === 'az' ? 'za' : '');
+  updateSortButton();
+  render();
+});
+function updateSortButton(){
+  btnSortAlpha.classList.toggle('active', sortAlpha !== '');
+  if(sortAlpha === 'az'){ btnSortAlpha.textContent = 'A-Z'; btnSortAlpha.title = 'Ordenação alfabética crescente (clique para Z-A)'; }
+  else if(sortAlpha === 'za'){ btnSortAlpha.textContent = 'Z-A'; btnSortAlpha.title = 'Ordenação alfabética decrescente (clique para padrão)'; }
+  else { btnSortAlpha.textContent = 'A-Z'; btnSortAlpha.title = 'Ordenar alfabeticamente por nome'; }
+}
+updateSortButton();
+document.querySelector('.stat.total.clickable').addEventListener('click', ()=> setStatusFilter(''));
+document.querySelector('.stat.vencido.clickable').addEventListener('click', ()=> setStatusFilter('vencido'));
+document.querySelector('.stat.proximo.clickable').addEventListener('click', ()=> setStatusFilter('vencendo30'));
+
+// ===== Exportar backup =====
+document.getElementById('btnExport').addEventListener('click', ()=>{
+  const blob = new Blob([JSON.stringify(certs, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const stamp = new Date().toISOString().slice(0,10);
+  a.href = url;
+  a.download = `backup-certificados-${stamp}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById('btnImport').addEventListener('click', ()=>{
+  document.getElementById('fileInput').click();
+});
+document.getElementById('fileInput').addEventListener('change', function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = async function(ev){
+    try{
+      const imported = JSON.parse(ev.target.result);
+      if(!Array.isArray(imported)) throw new Error('Formato inválido');
+
+      // Pergunta se deve limpar o cache do navegador antes de importar
+      const limparCache = confirm(
+        'Deseja LIMPAR o cache de armazenamento do navegador antes de importar?\n\n' +
+        'Isso apaga:\n' +
+        '  \u2022 localStorage (certificados antigos, lixeira, configs)\n' +
+        '  \u2022 sessionStorage\n' +
+        '  \u2022 Cache de rede (service workers / caches API)\n\n' +
+        'Recomendado ao restaurar um backup limpo. Clique em Cancelar para apenas mesclar/substituir os dados.'
+      );
+
+      if(limparCache){
+        try{
+          sessionStorage.clear();
+          // Limpa caches API (service worker caches) se existirem
+          if(window.caches){
+            const keys = await caches.keys();
+            await Promise.all(keys.map(k => caches.delete(k)));
+          }
+          // Limpa localStorage mantendo somente a importação atual
+          // (vamos persistir os dados importados logo abaixo)
+          localStorage.clear();
+          // Reseta arrays em memória
+          deletedCerts = [];
+          showingTrash = false;
+          const btnT = document.getElementById('btnTrash');
+          if(btnT){ btnT.innerHTML = '\uD83D\uDDD1 Lixeira'; btnT.classList.add('ghost'); }
+          sortAlpha = '';
+          const btnS = document.getElementById('btnSortAlpha');
+          if(btnS){ updateSortButton && updateSortButton(); }
+        }catch(errCache){
+          console.warn('Limpeza parcial do cache:', errCache);
+        }
+        certs = imported;
+      } else {
+        const merge = confirm('Clique OK para mesclar com os dados atuais, ou Cancelar para substituir tudo.');
+        if(merge){
+          const ids = new Set(certs.map(c=>c.id));
+          imported.forEach(c=>{ if(!ids.has(c.id)) certs.push(c); });
+        } else {
+          certs = imported;
+        }
+      }
+
+      render();
+      await persist();
+      await persistTrash();
+      alert(
+        'Backup importado com sucesso.\n\n' +
+        (limparCache ? 'Cache do navegador foi limpo antes da importação.' : 'Dados substituídos/mesclados.')
+      );
+    }catch(err){
+      alert('Não foi possível importar este arquivo. Verifique se é um backup válido gerado por este sistema.');
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+});
+
+// ===== Bkp automático: puxar BKP.json da pasta test/ =====
+const BKP_FILENAME = 'BKP.json';
+
+async function bkpAutoImport(){
+  // Estratégia 1: fetch relativo (funciona se servido via http://)
+  try{
+    const res = await fetch('test/' + BKP_FILENAME, { cache: 'no-store' });
+    if(res.ok){
+      const text = await res.text();
+      await applyImportedBkp(text, `test/${BKP_FILENAME} (servidor local)`);
+      return;
+    }
+  }catch(fetchErr){
+    // provavelmente file:// — cai para o input
+  }
+
+  // Estratégia 2: File System Access API (exige https://, memoriza a pasta)
+  if(window.showDirectoryPicker){
+    try{
+      if(!dbDirHandle){
+        alert('Na primeira vez, selecione a pasta "test" onde o BKP.json está localizado.');
+        dbDirHandle = await window.showDirectoryPicker({ id: 'certDB', mode: 'readwrite' });
+        localStorage.setItem(DIR_HANDLE_KEY, 'picked');
+      }
+      let fileHandle;
+      try{
+        fileHandle = await dbDirHandle.getFileHandle(BKP_FILENAME, { create: false });
+      }catch(missing){
+        alert(`Arquivo "${BKP_FILENAME}" não encontrado em "${dbDirHandle.name}".\nVerifique se o arquivo existe na pasta selecionada.`);
+        return;
+      }
+      const file = await fileHandle.getFile();
+      const text = await file.text();
+      await applyImportedBkp(text, `${dbDirHandle.name}/${BKP_FILENAME}`);
+      return;
+    }catch(err){
+      if(err.name === 'AbortError') return;
+      console.warn('File System Access falhou, usando input de arquivo.', err);
+    }
+  }
+
+  // Estratégia 3 (fallback): input de arquivo pedindo o BKP.json
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'application/json,.json';
+  input.onchange = async (ev) => {
+    const f = ev.target.files[0];
+    if(!f) return;
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      await applyImportedBkp(e.target.result, f.name);
+    };
+    reader.readAsText(f);
+  };
+  alert(
+    'Não foi possível acessar a pasta "test" automaticamente.\n\n' +
+    'Isto ocorre porque a página está aberta via file:// (protocolo local).\n\n' +
+    'Para permitir acesso automático_no futuro:\n' +
+    '  \u2022 Abra a pasta do projeto no PowerShell e rode:\n' +
+    '    python -m http.server 8000\n' +
+    '  \u2022 Acesse http://localhost:8000\n\n' +
+    'Por enquanto, selecione manualmente o arquivo BKP.json da pasta Departamento CPD>CONTROLE DE CERTIFICADOS>test/.'
+  );
+  input.click();
+}
+
+async function applyImportedBkp(text, fonte){
+  try{
+    const imported = JSON.parse(text);
+    let lista;
+    // Aceita tanto array direto quanto objeto com { certificados, lixeira }
+    if(Array.isArray(imported)){
+      lista = imported;
+    } else if(Array.isArray(imported.certificados)){
+      lista = imported.certificados;
+      if(Array.isArray(imported.lixeira)){
+        deletedCerts = imported.lixeira;
+        await persistTrash();
+      }
+    } else {
+      throw new Error('Formato inválido');
+    }
+
+    const limpar = confirm(
+      `Backup carregado de:\n${fonte}\n\n` +
+      `Total de certificados: ${lista.length}\n\n` +
+      `Deseja LIMPAR o cache do navegador antes de aplicar o backup?\n` +
+      `(Recomendado para restauração limpa)`
+    );
+
+    if(limpar){
+      try{
+        sessionStorage.clear();
+        if(window.caches){
+          const keys = await caches.keys();
+          await Promise.all(keys.map(k => caches.delete(k)));
+        }
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(TRASH_KEY);
+        deletedCerts = [];
+        showingTrash = false;
+        const btnT = document.getElementById('btnTrash');
+        if(btnT){ btnT.innerHTML = '\uD83D\uDDD1 Lixeira'; btnT.classList.add('ghost'); }
+      }catch(errCache){
+        console.warn('Limpeza parcial do cache:', errCache);
+      }
+      certs = lista;
+    } else {
+      const merge = confirm('Clique OK para mesclar com os dados atuais, ou Cancelar para substituir tudo.');
+      if(merge){
+        const ids = new Set(certs.map(c=>c.id));
+        lista.forEach(c=>{ if(!ids.has(c.id)) certs.push(c); });
+      } else {
+        certs = lista;
+      }
+    }
+
+    render();
+    await persist();
+    await persistTrash();
+    alert(`Backup aplicado com sucesso.\n\nFonte: ${fonte}\nCertificados carregados: ${certs.length}`);
+  }catch(err){
+    alert('Não foi possível importar o BKP.json. Verifique se o arquivo é um backup válido.\n\nDetalhe: ' + err.message);
+  }
+}
+
+document.getElementById('btnBkpAuto').addEventListener('click', bkpAutoImport);
+
+// ===== Salvar BD na pasta /test =====
+async function saveDbToTest(){
+  const data = {
+    exportado_em: new Date().toISOString(),
+    certificados: certs,
+    lixeira: deletedCerts
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+
+  // Cenário ideal: File System Access API para salvar direto na pasta
+  if(window.showDirectoryPicker){
+    try{
+      if(!dbDirHandle){
+        dbDirHandle = await window.showDirectoryPicker({ id: 'certDB', mode: 'readwrite' });
+        localStorage.setItem(DIR_HANDLE_KEY, 'picked');
+      }
+      const stamp = new Date().toISOString().slice(0,10).replace(/-/g,'-');
+      const fname = `backup-certificados-${stamp}.json`;
+      const fileHandle = await dbDirHandle.getFileHandle(fname, { create: true });
+      const writable = await fileHandle.createWritable();
+      await writable.write(blob);
+      await writable.close();
+      alert(`Banco de dados salvo em:\n${dbDirHandle.name}\\${fname}`);
+      return;
+    }catch(err){
+      if(err.name === 'AbortError') return;
+      console.warn('File System Access falhou, usando download.', err);
+    }
+  }
+
+  // Fallback: download
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const stamp = new Date().toISOString().slice(0,10);
+  a.href = url;
+  a.download = `backup-certificados-${stamp}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  alert('Banco salvo (download). Mova o arquivo para a pasta \\test se necessário.');
+}
+
+// Botão "Salvar BD" dinâmico no footer
+const btnDbSave = document.createElement('button');
+btnDbSave.type = 'button';
+btnDbSave.className = 'btn ghost small';
+btnDbSave.id = 'btnSaveDb';
+btnDbSave.textContent = 'Salvar BD (.json)';
+btnDbSave.addEventListener('click', saveDbToTest);
+document.querySelector('footer span:last-child').appendChild(btnDbSave);
+
+document.getElementById('todayLabel').textContent =
+  new Date().toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit', year:'numeric'});
+
+// ===== Auto-load BKP.json externo (test/BKP.json) na primeira abertura =====
+async function tryLoadExternalBkp(){
+  const BKP_PATH = 'test/BKP.json';
+  const STORAGE_KEY = 'certificados_escritorio';
+  const TRASH_KEY = 'certificados_lixeira';
+  const BKP_FLAG = 'bkp_autoload_done';
+
+  // So tentamos importar automaticamente uma unica vez (nao sobrescrever trabalho do usuario)
+  // Caso o usuario clique em "Importar backup" depois, ele limpa e reimporta manualmente
+  const alreadyLoaded = localStorage.getItem(BKP_FLAG);
+
+  // Primeiro carrega o que ja existe
+  loadLocal();
+  loadTrash();
+
+  // Se ja tem dados OU ja tentamos antes, parar por aqui
+  if(certs.length > 0 || alreadyLoaded === '1') return;
+
+  let textData = null;
+  let fonte = '';
+
+  // Estrategia 1: fetch relativo (funciona se servido via http://localhost)
+  try{
+    const res = await fetch(BKP_PATH, { cache: 'no-store' });
+    if(res.ok){
+      textData = await res.text();
+      fonte = BKP_PATH + ' (servidor local)';
+    }
+  }catch(e){
+    // file:// provavelmente bloqueia fetch
+  }
+
+  // Estrategia 2: File System Access API (https:// ou localhost)
+  if(!textData && window.showDirectoryPicker){
+    try{
+      const dirHandle = await window.showDirectoryPicker({ id: 'certBkpDir', mode: 'read', startIn: 'documents' });
+      let fileHandle;
+      try{
+        // Tenta subpasta test/
+        try{
+          const testHandle = await dirHandle.getDirectoryHandle('test');
+          fileHandle = await testHandle.getFileHandle('BKP.json');
+        }catch(e2){
+          // Tenta direto no diretorio escolhido
+          fileHandle = await dirHandle.getFileHandle('BKP.json');
+        }
+      }catch(missing){
+        alert('BKP.json nao encontrado. Selecione a pasta que contem o arquivo BKP.json.');
+        return;
+      }
+      const file = await fileHandle.getFile();
+      textData = await file.text();
+      fonte = 'BKP.json (' + dirHandle.name + ')';
+    }catch(err){
+      if(err.name === 'AbortError') return;
+      // usuario cancelou; continua sem BKP
+    }
+  }
+
+  // Estrategia 3 (fallback): input de arquivo
+  if(!textData){
+    const ok = confirm(
+      'Bem-vindo! Para carregar o banco de certificados automaticamente,\n' +
+      'selecione o arquivo BKP.json (que esta na pasta \\test do projeto).\n\n' +
+      'Clique em OK para escolher o arquivo, ou Cancelar para comecar vazio.'
+    );
+    if(!ok) return;
+    return new Promise((resolve) => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'application/json,.json';
+      input.onchange = async (ev) => {
+        const f = ev.target.files[0];
+        if(!f){ resolve(); return; }
+        textData = await f.text();
+        fonte = f.name;
+        await applyBkpLoad(textData, fonte, BKP_FLAG);
+        resolve();
+      };
+      input.click();
+    });
+  }
+
+  if(textData) await applyBkpLoad(textData, fonte, BKP_FLAG);
+}
+
+async function applyBkpLoad(textData, fonte, BKP_FLAG){
+  try{
+    const imported = JSON.parse(textData);
+    let lista = null;
+    let lix = [];
+    if(Array.isArray(imported)) lista = imported;
+    else if(Array.isArray(imported.certificados)){
+      lista = imported.certificados;
+      if(Array.isArray(imported.lixeira)) lix = imported.lixeira;
+    }
+    if(!lista) throw new Error('formato invalido');
+
+    certs = lista;
+    deletedCerts = lix;
+    await persist();
+    await persistTrash();
+    localStorage.setItem(BKP_FLAG, '1');
+    render();
+    console.log('[BKP externo] Carregado de', fonte, '-', lista.length, 'certificados');
+  }catch(e){
+    console.warn('Falha ao carregar BKP externo:', e);
+    alert('Nao foi possivel carregar o BKP.json: ' + e.message);
+  }
+}
+
+tryLoadExternalBkp();
+loadTrash();
+document.getElementById('filterStatus').value = 'vencendo30';
+render();
+
+// ===== Tema claro/escuro =====
+const THEME_KEY = 'certs_theme';
+function getCurrentTheme(){ return localStorage.getItem(THEME_KEY) || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }
+function applyTheme(theme){
+  if(theme === 'dark') document.documentElement.setAttribute('data-theme','dark');
+  else document.documentElement.removeAttribute('data-theme');
+}
+function toggleTheme(){
+  const next = getCurrentTheme() === 'dark' ? 'light' : 'dark';
+  localStorage.setItem(THEME_KEY, next);
+  applyTheme(next);
+}
+applyTheme(getCurrentTheme());
+const btnTheme = document.getElementById('btnTheme');
+if(btnTheme) btnTheme.addEventListener('click', toggleTheme);
+// Atualiza automaticamente se o sistema mudar e o usuário ainda não escolheu
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)=>{
+  if(!localStorage.getItem(THEME_KEY)) applyTheme(e.matches ? 'dark' : 'light');
+});
+
+// ===== Sócios (BrasilAPI - gratuita, sem token) =====
+const API_BASE = 'https://brasilapi.com.br/api/cnpj/v1';
+let sociosCurrentCnpj = '';
+
+async function openSocios(id){
+  const cert = certs.find(c=>c.id===id);
+  if(!cert) return;
+  const cnpjDigits = onlyDigits(cert.documento);
+  if(cnpjDigits.length !== 14){
+    alert('Este certificado não possui um CNPJ válido (14 dígitos) para consulta.');
+    return;
+  }
+  sociosCurrentCnpj = cnpjDigits;
+  document.getElementById('sociosTitle').textContent =
+    'Sócios — ' + (cert.nome || cert.titular || 'CNPJ ' + cnpjDigits);
+  document.getElementById('sociosBody').innerHTML =
+    '<div class="socios-loading">Consultando BrasilAPI...</div>';
+  document.getElementById('sociosOverlay').classList.add('show');
+
+  try{
+    const res = await fetch(API_BASE + '/' + cnpjDigits, {
+      headers: { 'Accept': 'application/json' }
+    });
+    if(!res.ok){
+      let msg = 'HTTP ' + res.status;
+      try{
+        const ej = await res.json();
+        if(ej && (ej.message || ej.error)) msg += ' — ' + (ej.message || ej.error);
+      }catch(e){}
+      throw new Error(msg);
+    }
+    const data = await res.json();
+    renderSocios(data, cert);
+  }catch(err){
+    document.getElementById('sociosBody').innerHTML =
+      '<div class="socios-error">&#9888; Falha ao consultar: ' + escapeHtml(err.message) + '<br>Verifique sua conexão e tente novamente.</div>';
+  }
+}
+
+function renderSocios(data, cert){
+  const body = document.getElementById('sociosBody');
+  const socios = Array.isArray(data.qsa) ? data.qsa : [];
+  const razao = data.razao_social || cert.titular || '—';
+  const fantasia = data.nome_fantasia || '';
+  const situacao = data.descricao_situacao_cadastral || data.situacao_cadastral || '—';
+  const abertura = data.data_inicio_atividade || '—';
+  const natureza = data.natureza_juridica || '—';
+  const capital = data.capital_social || '';
+
+  let html = '';
+  html += '<div class="socios-header">';
+  html += '<div><span>Razão social:</span> <b>' + escapeHtml(razao) + '</b></div>';
+  html += '<div><span>CNPJ:</span> <b>' + escapeHtml(sociosCurrentCnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5')) + '</b></div>';
+  html += '<div><span>Abertura:</span> <b>' + escapeHtml(fmtDateISO(abertura)) + '</b></div>';
+  html += '<div><span>Situação:</span> <b>' + escapeHtml(situacao) + '</b></div>';
+  if(fantasia) html += '<div><span>Nome fantasia:</span> <b>' + escapeHtml(fantasia) + '</b></div>';
+  if(natureza) html += '<div><span>Natureza jurídica:</span> <b>' + escapeHtml(natureza) + '</b></div>';
+  if(capital) html += '<div><span>Capital social:</span> <b>R$ ' + escapeHtml(String(capital)) + '</b></div>';
+  html += '</div>';
+
+  if(socios.length === 0){
+    html += '<div class="socios-empty">Nenhum sócio retornado pela API.</div>';
+    body.innerHTML = html;
+    return;
+  }
+
+  html += '<div class="socios-list"><div class="socios-list-title">Quadro societário (' + socios.length + ')</div>';
+  socios.forEach((s) => {
+    const nome = s.nome_socio || s.nome || '—';
+    const qual = s.qualificacao_socio || s.qualificacao || '—';
+    const faixa = s.faixa_etaria || '';
+    const entrada = s.data_entrada_sociedade || '';
+    const doc = s.cnpj_cpf_do_socio || '';
+    const rep = s.nome_representante_legal || '';
+    const repQual = s.qualificacao_representante_legal || '';
+    html += '<div class="socio-row">';
+    html += '<div class="socio-n">' + escapeHtml(nome) + '</div>';
+    html += '<div class="socio-meta">';
+    html += '<span class="tag">' + escapeHtml(String(qual)) + '</span>';
+    if(entrada) html += '<span class="tag">Entrou: ' + escapeHtml(fmtDateISO(entrada)) + '</span>';
+    if(faixa && faixa !== 'null') html += '<span class="tag">' + escapeHtml(String(faixa)) + '</span>';
+    if(doc && doc !== '***000000**') html += '<span class="tag">' + escapeHtml(String(doc)) + '</span>';
+    html += '</div>';
+    if(rep && rep !== '' && rep !== 'null'){
+      html += '<div class="socio-rep">Rep. legal: ' + escapeHtml(rep);
+      if(repQual && repQual !== 'Não informada') html += ' (' + escapeHtml(repQual) + ')';
+      html += '</div>';
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+  body.innerHTML = html;
+}
+
+function fmtDateISO(s){
+  if(!s || s === 'null') return '—';
+  if(/^\d{4}-\d{2}-\d{2}/.test(s)) return fmtDate(s.slice(0,10));
+  return String(s);
+}
+
+document.getElementById('btnSociosClose').addEventListener('click', ()=>{
+  document.getElementById('sociosOverlay').classList.remove('show');
+});
+const btnSociosCloseTop = document.getElementById('btnSociosCloseTop');
+if(btnSociosCloseTop) btnSociosCloseTop.addEventListener('click', ()=>{
+  document.getElementById('sociosOverlay').classList.remove('show');
+});
+document.getElementById('sociosOverlay').addEventListener('click', (e)=>{
+  if(e.target.id === 'sociosOverlay') document.getElementById('sociosOverlay').classList.remove('show');
+});
+document.getElementById('btnSociosOpen').addEventListener('click', ()=>{
+  if(!sociosCurrentCnpj) return;
+  // BKP automático - carregar do JSON externo
+window.addEventListener('DOMContentLoaded', ()=>{
+  var btnBKP = document.getElementById('btnBKPAuto');
+  if(btnBKP){
+    btnBKP.addEventListener('click', function(){
+      var jsonPath = 'test/BKP.json';
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function(){
+        if(this.readyState === 4 && this.status === 200){
+          var data = JSON.parse(this.responseText);
+          if(data && data.certificados){
+            window.__BKP_CERTS = data.certificados;
+            alert('BKP automático carregado: ' + data.certificados.length + ' certificados');
+          }
+        }
+      };
+      xhttp.open('GET', jsonPath, true);
+      xhttp.send();
+    });
+  }
+});
+
+// Carimbo único de autoria
+(function addSignature(){
+  var style = document.createElement('style');
+  style.textContent = '.watermark{position:fixed;right:10px;bottom:10px;font-family:IBM Plex Mono,monospace;font-size:11px;color:var(--ink-soft);pointer-events:none;z-index:9999;}';
+  document.head.appendChild(style);
+  var span = document.createElement('span');
+  span.className = 'watermark';
+  span.textContent = 'Projeto desenvolvido e montado por Vitor Giordani Rabello';
+  document.body.appendChild(span);
+})();
+});
+
+</script>
+</body>
+</html>

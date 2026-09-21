@@ -1802,10 +1802,10 @@
     "documento": "32198318000115",
     "tipo": "e-CNPJ",
     "modelo": "A1",
-    "emissao": "2026-09-21",
-    "vencimento": "2027-09-21",
+    "emissao": "2025-09-24",
+    "vencimento": "2026-09-24",
     "emissora": "ICP-Brasil",
-    "responsavel": "MARÍLIA - CPD",
+    "responsavel": "VITOR RABELLO - CPD",
     "obs": ""
   },
   {
@@ -4758,5 +4758,18 @@
     "emissora": "PIRAMIDE",
     "responsavel": "VITOR RABELLO - CPD",
     "obs": "Local: PAsta Servidor (BTA PF)\nSenha: 030926"
+  },
+  {
+    "id": "c_1790010960925_dd1cpe",
+    "nome": "EDIVAR ZANOTTO LTDA",
+    "titular": "EDIVAR",
+    "documento": "18.709.027/0001-13",
+    "tipo": "e-CNPJ",
+    "modelo": "A1",
+    "emissao": "2026-09-09",
+    "vencimento": "2027-09-09",
+    "emissora": "AC SAFEWEB",
+    "responsavel": "MARILIA LEONCIO - CPD",
+    "obs": "Pasta cliente - A1 - senha: 11223344"
   }
 ]

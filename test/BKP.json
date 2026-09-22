@@ -2726,8 +2726,8 @@
     "documento": "25116441000184",
     "tipo": "e-CNPJ",
     "modelo": "A1",
-    "emissao": "2025-09-15",
-    "vencimento": "2026-09-15",
+    "emissao": "2026-09-22",
+    "vencimento": "2027-09-22",
     "emissora": "ICP-Brasil",
     "responsavel": "VITOR RABELLO - CPD",
     "obs": ""
@@ -3832,11 +3832,11 @@
     "documento": "00762482087",
     "tipo": "e-CPF",
     "modelo": "A1",
-    "emissao": "2026-09-22",
-    "vencimento": "2027-09-22",
+    "emissao": "2025-09-30",
+    "vencimento": "2026-09-30",
     "emissora": "ICP-Brasil",
-    "responsavel": "MARILIA LEONCIO - CPD",
-    "obs": "DOCUMENTOS DEPARTAMENTOS\\DEPARTAMENTO CPD\\CERTIFICADOS A1\\FRANCISO JOAQUIM SCHIO -A1PF\\2026\n\nsenha: 22092026"
+    "responsavel": "VITOR RABELLO - CPD",
+    "obs": ""
   },
   {
     "id": "c_1783023266092_db1fff",

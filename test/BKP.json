@@ -4771,5 +4771,18 @@
     "emissora": "AC SAFEWEB",
     "responsavel": "MARILIA LEONCIO - CPD",
     "obs": "Pasta cliente - A1 - senha: 11223344"
+  },
+  {
+    "id": "c_1790183933135_19uvuo",
+    "nome": "Marcia Maria Pozza Baldin",
+    "titular": "Marcia Maria Pozza Baldin",
+    "documento": "38161311072",
+    "tipo": "e-CPF",
+    "modelo": "A3",
+    "emissao": "2026-09-23",
+    "vencimento": "2028-09-22",
+    "emissora": "ICP-Brasil",
+    "responsavel": "Marília - CPD",
+    "obs": "Cartão A3 armazenado no escritório CPD. Senha 230926"
   }
 ]

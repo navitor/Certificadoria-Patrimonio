@@ -4784,5 +4784,18 @@
     "emissora": "ICP-Brasil",
     "responsavel": "Marília - CPD",
     "obs": "Cartão A3 armazenado no escritório CPD. Senha 230926"
+  },
+  {
+    "id": "c_1790248262297_tegu58",
+    "nome": "I' AGROASSESSORIA RURAL E FLORESTAL LTDA",
+    "titular": "Iago Martins",
+    "documento": "49.609.215/0001-01",
+    "tipo": "e-CNPJ",
+    "modelo": "A1",
+    "emissao": "2026-09-23",
+    "vencimento": "2027-09-23",
+    "emissora": "",
+    "responsavel": "Marília - CPD",
+    "obs": "Pasta Cliente, S.230926"
   }
 ]

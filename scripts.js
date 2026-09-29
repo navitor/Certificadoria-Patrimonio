@@ -771,6 +771,10 @@ document.getElementById('todayLabel').textContent =
 
 loadLocal();
 loadTrash();
+
+// Auto-executar BKP automático ao recarregar a página
+(async () => { await bkpAutoImport(); })();
+
 document.getElementById('filterStatus').value = 'vencendo30';
 
 // Auto-load: se estiver rodando via Django e o localStorage estiver vazio, puxa da API

@@ -3389,10 +3389,10 @@
     "documento": "92098240082",
     "tipo": "e-CNPJ",
     "modelo": "A1",
-    "emissao": "2024-03-25",
-    "vencimento": "2025-03-25",
+    "emissao": "2026-03-10",
+    "vencimento": "2027-03-10",
     "emissora": "ICP-Brasil",
-    "responsavel": "VITOR RABELLO - CPD",
+    "responsavel": "MARILIA LEONCIO - CPD",
     "obs": ""
   },
   {
@@ -4761,7 +4761,7 @@
   },
   {
     "id": "c_1790183933135_19uvuo",
-    "nome": "MARCIA MARIA POZZA BALDIN",
+    "nome": "Marcia Maria Pozza Baldin",
     "titular": "Marcia Maria Pozza Baldin",
     "documento": "38161311072",
     "tipo": "e-CPF",

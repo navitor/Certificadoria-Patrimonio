@@ -260,19 +260,6 @@
     "obs": "GAVETA CPD\nSENHA: PATR1162"
   },
   {
-    "id": "c_1783016260155_4rf2p5",
-    "nome": "JOÃO VITOR CAIERON MOREIRA",
-    "titular": "JOÃO VITOR CAIERON MOREIRA",
-    "documento": "04007911029",
-    "tipo": "e-CPF",
-    "modelo": "A3",
-    "emissao": "2023-10-18",
-    "vencimento": "2026-10-17",
-    "emissora": "PIRAMIDE",
-    "responsavel": "VITOR RABELLO- CPD",
-    "obs": "GAVETA CPD\nSENHA: 181023"
-  },
-  {
     "id": "c_1783016390215_g4rrsp",
     "nome": "JOSE SOZO",
     "titular": "JOSE SOZO",
@@ -595,19 +582,6 @@
     "emissao": "2025-10-31",
     "vencimento": "2026-10-31",
     "emissora": "PIRAMIDE",
-    "responsavel": "VITOR RABELLO - CPD",
-    "obs": ""
-  },
-  {
-    "id": "c_1783023265990_11c3b8",
-    "nome": "EUCLIDES CAIERON MOREIRA",
-    "titular": "EUCLIDES CAIERON MOREIRA",
-    "documento": "04007900094",
-    "tipo": "e-CPF",
-    "modelo": "A3",
-    "emissao": "2023-10-19",
-    "vencimento": "2026-10-18",
-    "emissora": "ICP-Brasil",
     "responsavel": "VITOR RABELLO - CPD",
     "obs": ""
   },
@@ -2023,10 +1997,10 @@
     "documento": "95046876000185",
     "tipo": "e-CNPJ",
     "modelo": "A1",
-    "emissao": "2025-10-14",
-    "vencimento": "2026-10-14",
+    "emissao": "2026-10-14",
+    "vencimento": "2027-10-14",
     "emissora": "ICP-Brasil",
-    "responsavel": "VITOR RABELLO - CPD",
+    "responsavel": "Marília - CPD",
     "obs": "Local: Pasta Servidor (SEJAPEL)\nSenha: 11223344"
   },
   {
@@ -4197,12 +4171,11 @@
     "documento": "22929621000197",
     "tipo": "e-CNPJ",
     "modelo": "A3",
-    "emissao": "2023-01-20",
-    "vencimento": "2025-01-20",
+    "emissao": "2026-08-07",
+    "vencimento": "2028-08-06",
     "emissora": "PIRAMIDE",
-    "local": "",
-    "responsavel": "VITOR RABELLO - CPD",
-    "obs": "GAVETA CPD\nSENHA: 200123"
+    "responsavel": "Marília Leoncio - CPD",
+    "obs": "GAVETA CPD\nSENHA: 070826"
   },
   {
     "id": "c_1783428201154_wbg1h7",
@@ -4797,5 +4770,18 @@
     "emissora": "SAFEWEB",
     "responsavel": "MARILIA LEONCIO - CPD",
     "obs": "C:\\Users\\Dell\\PATRIMONIO\\ESCRITÓRIO - Documentos\\DOCUMENTOS DEPARTAMENTOS\\DEPARTAMENTO CPD\\CERTIFICADOS A1\\LUANA DONDE GIROTTO"
+  },
+  {
+    "id": "c_1791996994754_njf6kl",
+    "nome": "LA VECIA RESTAURANTE LTDA",
+    "titular": "FABIANO SABEI",
+    "documento": "15336674/0001-39",
+    "tipo": "e-CNPJ",
+    "modelo": "A1",
+    "emissao": "2026-10-14",
+    "vencimento": "2027-10-14",
+    "emissora": "Ac SyngularID Multipla",
+    "responsavel": "MARILIA LEONCIO - CPD",
+    "obs": "Pasta cliente\nsenha: 123456"
   }
 ]

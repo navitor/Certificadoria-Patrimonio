@@ -2257,11 +2257,11 @@
     "documento": "10780780000193",
     "tipo": "e-CNPJ",
     "modelo": "A1",
-    "emissao": "2025-10-27",
-    "vencimento": "2026-10-27",
+    "emissao": "2026-10-26",
+    "vencimento": "2027-10-26",
     "emissora": "PIRAMIDE",
-    "responsavel": "VITOR RABELLO - CPD",
-    "obs": "Local: Pasta Servidor(DANIELLI & DANIELLI)\nSenha: 271025"
+    "responsavel": "MARILIA LEONCIO - CPD",
+    "obs": "Local: Pasta Servidor(DANIELLI & DANIELLI)\nSenha: 261026"
   },
   {
     "id": "c_1783023266055_c34302",
@@ -4327,20 +4327,6 @@
     "local": "",
     "responsavel": "VITOR RABELLO - CPD",
     "obs": "LOCAL: GAVETA CPD\nSENHA: 1122"
-  },
-  {
-    "id": "c_1783429933563_9la7ia",
-    "nome": "DIANA VESCOVI GOLIN",
-    "titular": "DIANA VESCOVI GOLIN",
-    "documento": "62942484004",
-    "tipo": "e-CNPJ",
-    "modelo": "A3",
-    "emissao": "2024-11-20",
-    "vencimento": "2027-11-20",
-    "emissora": "PIRAMIDE",
-    "local": "",
-    "responsavel": "VITOR RABELLO - CPD",
-    "obs": "GAVETA CPD\nSENHA: 1122"
   },
   {
     "id": "c_1783430234899_6bm4am",

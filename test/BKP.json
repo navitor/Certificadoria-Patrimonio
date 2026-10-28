@@ -4769,5 +4769,18 @@
     "emissora": "Ac SyngularID Multipla",
     "responsavel": "MARILIA LEONCIO - CPD",
     "obs": "Pasta cliente\nsenha: 123456"
+  },
+  {
+    "id": "c_1793209042851_ek2p9v",
+    "nome": "MAURO PIPINO PIRES",
+    "titular": "MAURO PIPINO PIRES",
+    "documento": "47791233053",
+    "tipo": "e-CPF",
+    "modelo": "A3",
+    "emissao": "2026-10-28",
+    "vencimento": "2028-10-27",
+    "emissora": "AC SAFEWEB",
+    "responsavel": "MARILIA LEONCIO - CPD",
+    "obs": "FICA COM O CLIENTE - SCHIO."
   }
 ]

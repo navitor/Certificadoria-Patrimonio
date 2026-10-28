@@ -4782,5 +4782,18 @@
     "emissora": "AC SAFEWEB",
     "responsavel": "MARILIA LEONCIO - CPD",
     "obs": "FICA COM O CLIENTE - SCHIO."
+  },
+  {
+    "id": "c_1793211456773_jcjjbq",
+    "nome": "MECANICA BIASUS LTDA",
+    "titular": "BRENO MARCILIO DE STEFANE",
+    "documento": "68781335000128",
+    "tipo": "e-CNPJ",
+    "modelo": "A1",
+    "emissao": "2026-10-28",
+    "vencimento": "2027-10-28",
+    "emissora": "AC CERTISIGN",
+    "responsavel": "MARILIA LEONCIO - CPD",
+    "obs": "PASTA CLIENTE\nSENHA: Mb1572361701"
   }
 ]

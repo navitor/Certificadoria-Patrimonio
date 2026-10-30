@@ -579,11 +579,11 @@
     "documento": "07307886000160",
     "tipo": "e-CNPJ",
     "modelo": "A1",
-    "emissao": "2025-10-31",
-    "vencimento": "2026-10-31",
+    "emissao": "2026-10-30",
+    "vencimento": "2027-10-30",
     "emissora": "PIRAMIDE",
-    "responsavel": "VITOR RABELLO - CPD",
-    "obs": ""
+    "responsavel": "MARILIA LEONCIO - CPD",
+    "obs": "Pasta cliente. \nSenha: 11223344"
   },
   {
     "id": "c_1783023265990_dc1900",

@@ -743,7 +743,7 @@
   },
   {
     "id": "c_1783023265991_1d545c",
-    "nome": "BARBARA GOLIN ALMEIDA",
+    "nome": "BARBARA GOLIN ALMEIDA (cliente tem outro A1 válido até 05/11/27)",
     "titular": "BARBARA GOLIN ALMEIDA",
     "documento": "97070840063",
     "tipo": "e-CPF",
@@ -2179,11 +2179,11 @@
     "documento": "97070840063",
     "tipo": "e-CPF",
     "modelo": "A1",
-    "emissao": "2025-11-06",
-    "vencimento": "2026-11-06",
+    "emissao": "2026-11-05",
+    "vencimento": "2027-11-05",
     "emissora": "ICP-Brasil",
-    "responsavel": "VITOR RABELLO - CPD",
-    "obs": ""
+    "responsavel": "Marília Leoncio",
+    "obs": "Pasta cliente\nSenha: safeweb+"
   },
   {
     "id": "c_1783023266055_0b23ee",

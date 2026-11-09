@@ -1711,11 +1711,11 @@
     "documento": "00662937074",
     "tipo": "e-CPF",
     "modelo": "A1",
-    "emissao": "2025-08-26",
-    "vencimento": "2026-08-26",
+    "emissao": "2026-11-09",
+    "vencimento": "2027-11-09",
     "emissora": "ICP-Brasil",
-    "responsavel": "VITOR RABELLO - CPD",
-    "obs": ""
+    "responsavel": "MARILIA LEONCIO - CPD",
+    "obs": "PASTA CPD CLIENTE. SENHA 091126."
   },
   {
     "id": "c_1783023266038_101981",
@@ -3409,6 +3409,19 @@
     "obs": ""
   },
   {
+    "id": "c_1783023266074_fbd8db",
+    "nome": "K A COMERCIO DE VEICULOS LTDA",
+    "titular": "K A COMERCIO DE VEICULOS LTDA",
+    "documento": "25116441000184",
+    "tipo": "e-CNPJ",
+    "modelo": "A3",
+    "emissao": "2023-11-10",
+    "vencimento": "2026-11-09",
+    "emissora": "ICP-Brasil",
+    "responsavel": "VITOR RABELLO - CPD",
+    "obs": ""
+  },
+  {
     "id": "c_1783023266089_8ebaca",
     "nome": "ELIANE APARECIDA DA COSTA D AGOSTINI",
     "titular": "ELIANE APARECIDA DA COSTA D AGOSTINI",
@@ -4782,5 +4795,18 @@
     "emissora": "AC CERTISIGN",
     "responsavel": "MARILIA LEONCIO - CPD",
     "obs": "PASTA CLIENTE\nSENHA: Mb1572361701"
+  },
+  {
+    "id": "c_1794249062498_9b894y",
+    "nome": "PAULO MIGUEL LEMOS VASQUES",
+    "titular": "PAULO MIGUEL LEMOS VASQUES",
+    "documento": "55794114053",
+    "tipo": "e-CPF",
+    "modelo": "A1",
+    "emissao": "2026-01-21",
+    "vencimento": "2027-01-21",
+    "emissora": "AC CERTSIGN",
+    "responsavel": "",
+    "obs": "PASTA EMPRESA. SENHA 110902"
   }
 ]

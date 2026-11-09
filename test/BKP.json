@@ -292,10 +292,10 @@
     "documento": "49444859053",
     "tipo": "e-CPF",
     "modelo": "A3",
-    "emissao": "2023-11-16",
-    "vencimento": "2026-11-16",
+    "emissao": "2026-11-09",
+    "vencimento": "2028-11-08",
     "emissora": "PIRAMIDE",
-    "responsavel": "VITOR RABELLO- CPD",
+    "responsavel": "MARILIA LEONCIO - CPD",
     "obs": "GAVETA CPD\nSENHA: 161123"
   },
   {
@@ -3404,19 +3404,6 @@
     "modelo": "A1",
     "emissao": "2025-12-16",
     "vencimento": "2026-12-16",
-    "emissora": "ICP-Brasil",
-    "responsavel": "VITOR RABELLO - CPD",
-    "obs": ""
-  },
-  {
-    "id": "c_1783023266074_fbd8db",
-    "nome": "K A COMERCIO DE VEICULOS LTDA",
-    "titular": "K A COMERCIO DE VEICULOS LTDA",
-    "documento": "25116441000184",
-    "tipo": "e-CNPJ",
-    "modelo": "A3",
-    "emissao": "2023-11-10",
-    "vencimento": "2026-11-09",
     "emissora": "ICP-Brasil",
     "responsavel": "VITOR RABELLO - CPD",
     "obs": ""

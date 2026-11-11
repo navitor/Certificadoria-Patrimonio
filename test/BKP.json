@@ -4795,5 +4795,18 @@
     "emissora": "AC CERTSIGN",
     "responsavel": "",
     "obs": "PASTA EMPRESA. SENHA 110902"
+  },
+  {
+    "id": "c_1794399996764_bq6mhb",
+    "nome": "PERFECTA CONSULTORIA AGRÍCOLA",
+    "titular": "GIOVANI ODAIR ANSCHAU",
+    "documento": "30877677000173",
+    "tipo": "e-CNPJ",
+    "modelo": "A1",
+    "emissao": "2026-05-20",
+    "vencimento": "2027-05-20",
+    "emissora": "Ac SyngularID Multipla",
+    "responsavel": "MARILIA LEONCIO - CPD",
+    "obs": "Pasta Cliente. Senha: Perf1234."
   }
 ]

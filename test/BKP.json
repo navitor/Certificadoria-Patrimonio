@@ -4795,5 +4795,18 @@
     "emissora": "Ac SyngularID Multipla",
     "responsavel": "MARILIA LEONCIO - CPD",
     "obs": "Pasta Cliente. Senha: Perf1234."
+  },
+  {
+    "id": "c_1794849878029_yg9fwc",
+    "nome": "PADAVENA CAPITAL E PARTICIPACOES LTDA",
+    "titular": "DIEGO SCHIO",
+    "documento": "48151598000146",
+    "tipo": "e-CNPJ",
+    "modelo": "A3",
+    "emissao": "2026-11-17",
+    "vencimento": "2028-11-16",
+    "emissora": "AC SAFEWEB",
+    "responsavel": "MARILIA LEONCIO - CPD",
+    "obs": "Pasta Cliente. Senha 1122."
   }
 ]

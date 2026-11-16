@@ -2869,11 +2869,11 @@
     "documento": "11788769000132",
     "tipo": "e-CNPJ",
     "modelo": "A1",
-    "emissao": "2025-11-19",
-    "vencimento": "2026-11-19",
+    "emissao": "2026-11-16",
+    "vencimento": "2027-11-16",
     "emissora": "ICP-Brasil",
-    "responsavel": "VITOR RABELLO - CPD",
-    "obs": ""
+    "responsavel": "MARILIA LEONCIO - CPD",
+    "obs": "Pasta Cliente. Senha 161126"
   },
   {
     "id": "c_1783023266074_b6569e",
@@ -4807,6 +4807,6 @@
     "vencimento": "2028-11-16",
     "emissora": "AC SAFEWEB",
     "responsavel": "MARILIA LEONCIO - CPD",
-    "obs": "Pasta Cliente. Senha 1122."
+    "obs": "Gaveta CPD. Senha 1122."
   }
 ]

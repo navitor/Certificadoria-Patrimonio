@@ -4808,5 +4808,18 @@
     "emissora": "AC SAFEWEB",
     "responsavel": "MARILIA LEONCIO - CPD",
     "obs": "Gaveta CPD. Senha 1122."
+  },
+  {
+    "id": "c_1795112522858_vaebfs",
+    "nome": "ANDREZA SCHIO SOCIEDADE INDIVIDUAL DE ADVOCACIA",
+    "titular": "ANDREZA SCHIO",
+    "documento": "69961373000125",
+    "tipo": "e-CNPJ",
+    "modelo": "A1",
+    "emissao": "2026-11-19",
+    "vencimento": "2027-11-19",
+    "emissora": "AC SAFEWEB",
+    "responsavel": "MARILIA LEONCIO - CPD",
+    "obs": "PASTA CLIENTE\nSENHA 19112026"
   }
 ]
